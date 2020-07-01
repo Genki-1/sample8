@@ -16,8 +16,10 @@
     </div>
 
     <div id="vue_unit">
-      {{ message }}<br>
-      {{ greeting }}
+      <div class="photo"v-for="photo in photo">
+        <img :src="photo.path">
+        <div class="inner"><p>{{ photo.caption }}<span>{{ photo.name }}</span></p></div>
+      </div>
     </div>
   </div>
 
