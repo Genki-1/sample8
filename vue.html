@@ -13,12 +13,9 @@
 
   <div class="container">
     <div id="img_unit">
-    </div>
-
-    <div id="vue_unit">
-      <div class="photo"v-for="photo in photo">
-        <img :src="photo.path">
-        <div class="inner"><p>{{ photo.caption }}<span>{{ photo.name }}</span></p></div>
+      <div class="photo" v-for="Photo in Photos">
+        <img :src="Photo.path">
+        <div class="inner"><p>{{ Photo.caption }}<span>{{ Photo.name }}</span></p></div>
       </div>
     </div>
   </div>
@@ -26,20 +23,16 @@
   <script src="js/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script>
-    $.getJSON('https://h2o-space.com/htmlbook/images.php', function(data) {
-      for (var i=0; i<data.length; i++) {
-        $('<div class="photo"></div>')
-          .append('<img src="' + data[i].path + '">')
-          .append('<div class="inner"><p>' + data[i].caption + '<span>' + data[i].name + '</span></p></div>')
-          .appendTo('#img_unit');
-      }
-    });
-
     var app = new Vue ({
-      el: '#vue_unit',
+      el: '#img_unit',
       data: {
-        message: 'vue.jsで書き換えました',
-        greeting: 'こんにちは'
+        Photos: []
+      },
+      created: function() {
+        var self = this;
+        $.getJSON('https://h2o-space.com/htmlbook/images.php', function(data) {
+            self.Photos = data;
+        });
       }
     });
   </script>
